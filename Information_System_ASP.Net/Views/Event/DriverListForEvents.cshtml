@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Information_System_ASP.Net.Models.Driver>
+
+@{
+    ViewData["Title"] = "Select Driver for Events";
+}
+
+<h2>Select Driver to View Events</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Driver Name</th>
+            <th>Car Registration</th>
+            <th>Responsible Employee</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var driver in Model)
+        {
+            <tr>
+                <td>@driver.DriverName</td>
+                <td>@driver.CarReg</td>
+                <td>@driver.ResponsibleEmployee</td>
+                <td>
+@*                     <a asp-action="Index" asp-controller="Event" asp-route-driverId="@driver.DriverID" class="btn btn-primary btn-sm">View Events</a> *@
+                    <a asp-action="Details" asp-controller="Driver" asp-route-id="@driver.DriverID" class="btn btn-primary btn-sm">View Driver Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

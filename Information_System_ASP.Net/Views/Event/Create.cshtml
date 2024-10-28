@@ -1,0 +1,53 @@
+﻿@model Information_System_ASP.Net.Models.Event
+
+@{
+    ViewData["Title"] = "Log New Event";
+}
+
+<h2>Log New Event</h2>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="DriverID"></label>
+        <select asp-for="DriverID" class="form-control" asp-items="ViewBag.Drivers"></select>
+        <span asp-validation-for="DriverID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EventDate"></label>
+        <input asp-for="EventDate" type="datetime-local" class="form-control" />
+        <span asp-validation-for="EventDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EventDescription"></label>
+        <textarea asp-for="EventDescription" class="form-control"></textarea>
+        <span asp-validation-for="EventDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BeloppIn"></label>
+        <input asp-for="BeloppIn" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="BeloppIn" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BeloppUt"></label>
+        <input asp-for="BeloppUt" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="BeloppUt" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="LoggedByEmployee" value="@User.Identity.Name" />
+
+    <div class="form-group">
+        <input type="submit" value="Log Event" class="btn btn-primary" />
+        <a asp-action="DriverListForEvents" class="btn btn-secondary">To Events</a>
+
+
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+</form>

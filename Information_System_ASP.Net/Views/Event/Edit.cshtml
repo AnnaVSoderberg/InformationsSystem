@@ -1,0 +1,46 @@
+﻿@model Information_System_ASP.Net.Models.Event
+
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<h2>Edit Event</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="EventID" />
+
+    <div class="form-group">
+        <label asp-for="DriverID"></label>
+        <select asp-for="DriverID" class="form-control" asp-items="ViewBag.Drivers"></select>
+        <span asp-validation-for="DriverID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EventDate"></label>
+        <input asp-for="EventDate" type="datetime-local" class="form-control" />
+        <span asp-validation-for="EventDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EventDescription"></label>
+        <textarea asp-for="EventDescription" class="form-control"></textarea>
+        <span asp-validation-for="EventDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LoggedByEmployee"></label>
+        <input asp-for="LoggedByEmployee" class="form-control" readonly />
+        <span asp-validation-for="LoggedByEmployee" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save Changes" class="btn btn-primary" />
+        <a asp-action="History" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

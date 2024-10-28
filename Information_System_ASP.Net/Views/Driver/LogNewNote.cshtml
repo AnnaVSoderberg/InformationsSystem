@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Log New Note";
+}
+
+<h2>Log New Note</h2>
+
+<form asp-action="LogNewNote" asp-controller="Driver" method="post">
+    <input type="hidden" name="driverId" value="@ViewBag.DriverID" />
+    <div class="form-group">
+        <label for="NoteDescription">Note Description</label>
+        <textarea id="NoteDescription" name="noteDescription" class="form-control" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Note</button>
+    <a asp-action="Details" asp-route-id="@ViewBag.DriverID" class="btn btn-secondary">Cancel</a>
+</form>

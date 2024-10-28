@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Information_System_ASP.Net.Models.Event>
+
+@{
+    ViewData["Title"] = "Event List";
+}
+
+<h2>Events for Driver: @ViewBag.DriverName</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Logged By</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ev in Model)
+        {
+            <tr>
+                <td>@ev.EventDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@ev.EventDescription</td>
+                <td>@ev.LoggedByEmployee</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Log New Event</a>
+    <a asp-action="DriverListForEvents" class="btn btn-secondary">Back to Driver List</a>
+

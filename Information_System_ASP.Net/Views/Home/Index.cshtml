@@ -1,0 +1,93 @@
+﻿@model Information_System_ASP.Net.Models.DashboardViewModel
+@using System.Linq
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div class="alert alert-info">
+                <h1 class="display-4">Welcome, @User.Identity.Name!</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Left column: Create new event -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Create New Event</h3>
+                </div>
+                <div class="card-body">
+                    <p>Click the button below to create a new event:</p>
+                    <a href="/Event/Create" class="btn btn-primary">Create New Event</a>
+                </div>
+            </div>
+
+            <!-- Conditional Rendering for Recent Driver Notes -->
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h3>Recent Driver Notes</h3>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.RecentDrivers != null && Model.RecentDrivers.Any())
+                        {
+                            <ul class="list-group">
+                                @foreach (var driver in Model.RecentDrivers)
+                                {
+                                    <li class="list-group-item">
+                                        <strong>@driver.DriverName</strong>
+                                        <p>Note: @driver.NoteDescription</p>
+                                        <p>CarReg: @driver.CarReg</p>
+                                        <p>Note Date: @driver.NoteDate.ToString("yyyy-MM-dd HH:mm")</p>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>No recent driver notes available.</p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Right column: Notifications -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Notifications</h3>
+                </div>
+                <div class="card-body">
+                    @if (Model.Notifications != null && Model.Notifications.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var notification in Model.Notifications)
+                            {
+                                <li class="list-group-item">
+                                    <strong>@notification.EventDescription</strong>
+                                    <p>Date: @notification.EventDate.ToString("yyyy-MM-dd HH:mm")</p>
+                                    <p>Logged by: @notification.LoggedByEmployee</p>
+                                    <p>
+                                        Driver:
+                                        @if (Model.Drivers.ContainsKey(notification.DriverID))
+                                        {
+                                            <strong>@Model.Drivers[notification.DriverID].DriverName</strong>
+                                        <p>CarReg: @Model.Drivers[notification.DriverID].CarReg</p>
+                                        }
+                                    </p>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>No notifications available.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

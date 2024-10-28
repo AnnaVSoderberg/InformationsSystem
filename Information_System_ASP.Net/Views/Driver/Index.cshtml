@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Information_System_ASP.Net.Models.Driver>
+
+@{
+    ViewData["Title"] = "Driver List";
+}
+
+<h2>Driver List</h2>
+
+<!-- Search Form -->
+<form method="get" asp-action="Index">
+    <div class="form-group">
+        <label for="searchName">Driver Name</label>
+        <input type="text" name="searchName" value="@Context.Request.Query["searchName"]" placeholder="Search by Driver Name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="searchCarReg">Car Registration</label>
+        <input type="text" name="searchCarReg" value="@Context.Request.Query["searchCarReg"]" placeholder="Search by Car Registration" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="searchEmployee">Responsible Employee</label>
+        <input type="text" name="searchEmployee" value="@Context.Request.Query["searchEmployee"]" placeholder="Search by Employee" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Add New Driver</a>
+</p>
+
+<!-- Driver List Table -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Driver Name</th>
+            <th>Car Registration</th>
+            <th>Responsible Employee</th>
+            <th>Total Belopp In</th>
+            <th>Total Belopp Ut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var driver in Model)
+        {
+            <tr>
+                <td>@driver.DriverName</td>
+                <td>@driver.CarReg</td>
+                <td>@driver.ResponsibleEmployee</td>
+                <td>@driver.TotalBeloppIn.ToString("C")</td>
+                <td>@driver.TotalBeloppUt.ToString("C")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@driver.DriverID" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@driver.DriverID" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@driver.DriverID" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
